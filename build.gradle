@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+    id 'maven-publish'
+}
+
+apply from: 'utils.gradle'
+group 'dev.lyze'
+version '1.0.' + getGitHash()
+
+sourceCompatibility = 8
+
+publishing {
+    publications {
+        gdxTiledMap(MavenPublication) {
+            pom {
+                name = "gdx-TiledMap"
+                description = "Libgdx library to implement tiled map based maps."
+                url = "https://github.com/lyze237/gdx-TiledMap"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+            }
+            from components.java
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+    testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+}
+
+test {
+    if (project.hasProperty("lwjgl")) {
+        useJUnitPlatform {
+            includeTags "lwjgl"
+        }
+    } else {
+        useJUnitPlatform {
+            excludeTags 'lwjgl'
+        }
+    }
+}
