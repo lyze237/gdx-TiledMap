@@ -2,7 +2,7 @@
 
 A libgdx parser for tiled https://www.mapeditor.org/
 
-[![Build, Test, Publish](https://github.com/lyze237/gdx-TiledMap/workflows/Build/badge.svg?branch=main)](https://github.com/lyze237/gdx-TiledMap/actions?query=workflow%3A%22Build%22)
+[![Build, Test, Publish](https://github.com/lyze237/gdx-TiledMap/workflows/Test/badge.svg?branch=main)](https://github.com/lyze237/gdx-TiledMap/actions?query=workflow%3A%22Test%22)
 [![License](https://img.shields.io/github/license/lyze237/gdx-TiledMap)](https://github.com/lyze237/gdx-TiledMap/blob/main/LICENSE)
 [![Jitpack](https://jitpack.io/v/lyze237/gdx-TiledMap.svg)](https://jitpack.io/#lyze237/gdx-TiledMap)
 
