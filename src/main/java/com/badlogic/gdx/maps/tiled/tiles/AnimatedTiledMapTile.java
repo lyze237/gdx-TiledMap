@@ -71,12 +71,12 @@ public class AnimatedTiledMapTile implements TiledMapTile {
 
         for (int i = 0; i < animationIntervals.length; ++i) {
             int animationInterval = animationIntervals[i];
-            if (currentTime <= animationInterval) return i;
+            if (currentTime <= animationInterval)
+                return i;
             currentTime -= animationInterval;
         }
 
-        throw new GdxRuntimeException(
-                "Could not determine current animation frame in AnimatedTiledMapTile.  This should never happen.");
+        throw new GdxRuntimeException("Could not determine current animation frame in AnimatedTiledMapTile.  This should never happen.");
     }
 
     public TiledMapTile getCurrentFrame() {
@@ -122,13 +122,11 @@ public class AnimatedTiledMapTile implements TiledMapTile {
             this.animationIntervals = intervals;
 
             loopDuration = 0;
-            for (int i = 0; i < intervals.length; i++) {
-                loopDuration += intervals[i];
+            for (int interval : intervals) {
+                loopDuration += interval;
             }
-
         } else {
-            throw new GdxRuntimeException("Cannot set " + intervals.length
-                    + " frame intervals. The given int[] must have a size of " + animationIntervals.length + ".");
+            throw new GdxRuntimeException("Cannot set " + intervals.length + " frame intervals. The given int[] must have a size of " + animationIntervals.length + ".");
         }
     }
 

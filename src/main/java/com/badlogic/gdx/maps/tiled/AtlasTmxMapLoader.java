@@ -53,9 +53,9 @@ public class AtlasTmxMapLoader extends BaseTmxMapLoader<AtlasTmxMapLoader.AtlasT
 
     protected interface AtlasResolver extends ImageResolver {
 
-        public TextureAtlas getAtlas();
+        TextureAtlas getAtlas();
 
-        public static class DirectAtlasResolver implements AtlasTmxMapLoader.AtlasResolver {
+        class DirectAtlasResolver implements AtlasTmxMapLoader.AtlasResolver {
             private final TextureAtlas atlas;
 
             public DirectAtlasResolver(TextureAtlas atlas) {
@@ -73,7 +73,7 @@ public class AtlasTmxMapLoader extends BaseTmxMapLoader<AtlasTmxMapLoader.AtlasT
             }
         }
 
-        public static class AssetManagerAtlasResolver implements AtlasTmxMapLoader.AtlasResolver {
+        class AssetManagerAtlasResolver implements AtlasTmxMapLoader.AtlasResolver {
             private final AssetManager assetManager;
             private final String atlasName;
 
@@ -94,7 +94,7 @@ public class AtlasTmxMapLoader extends BaseTmxMapLoader<AtlasTmxMapLoader.AtlasT
         }
     }
 
-    protected Array<Texture> trackedTextures = new Array<Texture>();
+    protected Array<Texture> trackedTextures = new Array<>();
 
     protected AtlasResolver atlasResolver;
 
@@ -120,7 +120,7 @@ public class AtlasTmxMapLoader extends BaseTmxMapLoader<AtlasTmxMapLoader.AtlasT
         this.atlasResolver = new AtlasResolver.DirectAtlasResolver(atlas);
 
         TiledMap map = loadTiledMap(tmxFile, parameter, atlasResolver);
-        map.setOwnedResources(new Array<TextureAtlas>(new TextureAtlas[]{atlas}));
+        map.setOwnedResources(new Array<>(new TextureAtlas[]{atlas}));
         setTextureFilters(parameter.textureMinFilter, parameter.textureMagFilter);
         return map;
     }
@@ -144,7 +144,7 @@ public class AtlasTmxMapLoader extends BaseTmxMapLoader<AtlasTmxMapLoader.AtlasT
 
     @Override
     protected Array<AssetDescriptor> getDependencyAssetDescriptors(FileHandle tmxFile, TextureLoader.TextureParameter textureParameter) {
-        Array<AssetDescriptor> descriptors = new Array<AssetDescriptor>();
+        Array<AssetDescriptor> descriptors = new Array<>();
 
         // Atlas dependencies
         final FileHandle atlasFileHandle = getAtlasFileHandle(tmxFile);

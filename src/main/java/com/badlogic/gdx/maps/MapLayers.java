@@ -25,7 +25,7 @@ import java.util.Iterator;
  * Ordered list of {@link MapLayer} instances owned by a {@link Map}
  */
 public class MapLayers implements Iterable<MapLayer> {
-    private Array<MapLayer> layers = new Array<MapLayer>();
+    private Array<MapLayer> layers = new Array<>();
 
     /**
      * @param index
@@ -103,7 +103,7 @@ public class MapLayers implements Iterable<MapLayer> {
      * @return array with all the layers matching type
      */
     public <T extends MapLayer> Array<T> getByType(Class<T> type) {
-        return getByType(type, new Array<T>());
+        return getByType(type, new Array<>());
     }
 
     /**

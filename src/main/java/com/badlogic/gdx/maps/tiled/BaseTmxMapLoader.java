@@ -612,7 +612,7 @@ public abstract class BaseTmxMapLoader<P extends BaseTmxMapLoader.Parameters> ex
             addStaticTiles(tmxFile, imageResolver, tileSet, element, tileElements, name, firstgid, tilewidth, tileheight, spacing,
                     margin, source, offsetX, offsetY, imageSource, imageWidth, imageHeight, image);
 
-            Array<AnimatedTiledMapTile> animatedTiles = new Array<AnimatedTiledMapTile>();
+            Array<AnimatedTiledMapTile> animatedTiles = new Array<>();
 
             for (Element tileElement : tileElements) {
                 int localtid = tileElement.getIntAttribute("id", 0);
@@ -673,7 +673,7 @@ public abstract class BaseTmxMapLoader<P extends BaseTmxMapLoader.Parameters> ex
                                                       int firstgid) {
         Element animationElement = tileElement.getChildByName("animation");
         if (animationElement != null) {
-            Array<StaticTiledMapTile> staticTiles = new Array<StaticTiledMapTile>();
+            Array<StaticTiledMapTile> staticTiles = new Array<>();
             IntArray intervals = new IntArray();
             for (Element frameElement : animationElement.getChildrenByName("frame")) {
                 staticTiles.add((StaticTiledMapTile) tileSet.getTile(firstgid + frameElement.getIntAttribute("tileid")));
