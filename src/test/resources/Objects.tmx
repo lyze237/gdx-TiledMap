@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="7">
+ <objectgroup id="2" name="Objects">
+  <object id="2" name="Cool Rectangle" type="a" x="16" y="464" width="48" height="32"/>
+  <object id="3" name="Fantastic Circle" type="b" x="64" y="432" width="32" height="32">
+   <ellipse/>
+  </object>
+  <object id="4" name="Amazing Ellipse" type="d" x="96" y="416" width="32" height="16">
+   <ellipse/>
+  </object>
+  <object id="5" name="Sweet Polygon" type="c" x="32" y="432">
+   <polygon points="0,16 16,-16 16,16"/>
+  </object>
+  <object id="6" name="Super Text" type="e" x="48" y="384" width="83" height="19">
+   <text wrap="1">Hello World</text>
+  </object>
+ </objectgroup>
+</map>
