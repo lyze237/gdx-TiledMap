@@ -25,11 +25,22 @@ public class BaseLwjglTest extends ApplicationAdapter {
 
     @AfterEach
     public void sleepy() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
     @AfterAll
     public void cleanUp() {
         dispose();
+    }
+
+    public void runOnOpenGlContext(Runnable runnable, long timeout, TimeUnit timeUnit) throws InterruptedException {
+        CountDownLatch latch = new CountDownLatch(1);
+
+        Gdx.app.postRunnable(() -> {
+            runnable.run();
+            latch.countDown();
+        });
+
+        Assertions.assertTrue(latch.await(timeout, timeUnit));
     }
 }
