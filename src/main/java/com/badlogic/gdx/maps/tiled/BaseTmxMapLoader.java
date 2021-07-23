@@ -10,10 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.*;
-import com.badlogic.gdx.maps.objects.EllipseMapObject;
-import com.badlogic.gdx.maps.objects.PolygonMapObject;
-import com.badlogic.gdx.maps.objects.PolylineMapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
+import com.badlogic.gdx.maps.objects.*;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.maps.tiled.objects.TiledMapTileMapObject;
 import com.badlogic.gdx.maps.tiled.tiles.AnimatedTiledMapTile;
@@ -362,7 +359,12 @@ public abstract class BaseTmxMapLoader<P extends BaseTmxMapLoader.Parameters> ex
                     polyline.setPosition(x, y);
                     object = new PolylineMapObject(polyline);
                 } else if ((child = element.getChildByName("ellipse")) != null) {
-                    object = new EllipseMapObject(x, flipY ? y - height : y, width, height);
+                    if (width == height) {
+                        object = new CircleMapObject(x, flipY ? y - height : y, width);
+                    }
+                    else {
+                        object = new EllipseMapObject(x, flipY ? y - height : y, width, height);
+                    }
                 }
             }
             if (object == null) {
