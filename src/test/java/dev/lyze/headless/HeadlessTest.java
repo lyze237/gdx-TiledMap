@@ -9,7 +9,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.mockito.Mockito;
 
-public class LibGDXHeadlessUnitTest {
+public class HeadlessTest {
     private static Application application;
 
     @BeforeAll
