@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class TiledMapLoadingTest extends HeadlessTest {
     @Test
-    public void loadBasicMap() {
+    public void mapProperties() {
         TmxMapLoader tmxMapLoader = new TmxMapLoader();
         TiledMap map = tmxMapLoader.load("Basic.tmx");
 

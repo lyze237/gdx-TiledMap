@@ -17,6 +17,7 @@ public class LwjglExtension extends BaseLwjglExtension {
 
     @Override
     void setup() throws InterruptedException {
+        System.out.println("Setup");
         wrapper = new ApplicationAdapterWrapper(new ApplicationAdapter() {
             @Override
             public void create() {
@@ -36,6 +37,7 @@ public class LwjglExtension extends BaseLwjglExtension {
 
     @Override
     public void close() throws Throwable {
+        System.out.println("Close");
         application.exit();
     }
 
