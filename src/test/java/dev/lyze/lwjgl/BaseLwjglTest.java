@@ -31,8 +31,17 @@ public class BaseLwjglTest extends ApplicationAdapter {
 
     @AfterEach
     public void sleepy() throws InterruptedException {
-        System.out.println("After each sleepy");
-        Thread.sleep(3000);
+        String timeoutEnv = System.getenv("SLEEPY");
+        try {
+            if (timeoutEnv != null) {
+                int timeout = Integer.parseInt(timeoutEnv);
+                Thread.sleep(timeout);
+            }
+        } catch (Exception e) {
+            Thread.sleep(3000);
+        }
+
+        Thread.sleep(100);
     }
 
     @AfterAll

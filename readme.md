@@ -20,6 +20,12 @@ This is a project to get everything up to date and separated into its own repo.
     1. [ ] Infinite map
 1. [ ] Go through libgdx issues and resolve them
 
+# What changed / How to migrate
+
+* Circles get parsed as CircleMapObjects instead of ellipses.
+* [#6607](https://github.com/libgdx/libgdx/pull/6607) Hexagonal tiled map renderer got fixed.
+* [#6534](https://github.com/libgdx/libgdx/pull/6534) Built in tile "type" property supported got added.
+
 # Installation
 
 1. Open or create `gradle.properties` in the root folder of your project, add the following line:
@@ -73,6 +79,8 @@ implementation "com.github.lyze237:gdx-TiledMap:$gdxTiledMapVersion:sources"
 
 By default, if you run `./gradlew test` gradle runs headless tests. If you want to test `lwjgl` tests (so with an actual
 gui), then you need to run them with `./gradlew test -Plwjgl=true`
+
+Set environment variable `SLEEPY` to a millisecond number to sleep between each LWJGL test. (For example: SLEEPY=3000 would wait 3 seconds after every test.)
 
 ## Credits
 
