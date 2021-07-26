@@ -35,7 +35,7 @@ public class HexagonalTiledMapRenderer extends BatchTiledMapRenderer {
     /**
      * true for even StaggerIndex, true for odd
      */
-    private boolean staggerIndexOdd = false;
+    private boolean staggerIndexEven = false;
     /**
      * the parameter defining the shape of the hexagon from tiled. more specifically it represents the length of the sides that
      * are parallel to the stagger axis. e.g. with respect to the stagger axis a value of 0 results in a rhombus shape, while a
@@ -76,12 +76,16 @@ public class HexagonalTiledMapRenderer extends BatchTiledMapRenderer {
 
         String index = map.getProperties().get("staggerindex", String.class);
         if (index != null) {
-            if (index.equals("odd")) {
-                staggerIndexOdd = true;
+            if (index.equals("even")) {
+                staggerIndexEven = true;
             } else {
-                staggerIndexOdd = false;
+                staggerIndexEven = false;
             }
         }
+
+        // due to y axis being different we need to change stagger index in even map height situations as else it would render differently
+        if (!staggerAxisX && map.getProperties().get("height", Integer.class) % 2 == 0)
+            staggerIndexEven = !staggerIndexEven;
 
         Integer length = map.getProperties().get("hexsidelength", Integer.class);
         if (length != null) {
@@ -130,25 +134,21 @@ public class HexagonalTiledMapRenderer extends BatchTiledMapRenderer {
             final float layerTileHeight50 = layerTileHeight * 0.50f;
 
             final int row1 = Math.max(0, (int) ((viewBounds.y - layerTileHeight50 - layerOffsetX) / layerTileHeight));
-            final int row2 = Math.min(layerHeight,
-                    (int) ((viewBounds.y + viewBounds.height + layerTileHeight - layerOffsetX) / layerTileHeight));
+            final int row2 = Math.min(layerHeight, (int) ((viewBounds.y + viewBounds.height + layerTileHeight - layerOffsetX) / layerTileHeight));
 
             final int col1 = Math.max(0, (int) (((viewBounds.x - tileWidthLowerCorner - layerOffsetY) / tileWidthUpperCorner)));
-            final int col2 = Math.min(layerWidth,
-                    (int) ((viewBounds.x + viewBounds.width + tileWidthUpperCorner - layerOffsetY) / tileWidthUpperCorner));
+            final int col2 = Math.min(layerWidth, (int) ((viewBounds.x + viewBounds.width + tileWidthUpperCorner - layerOffsetY) / tileWidthUpperCorner));
 
             // depending on the stagger index either draw all even before the odd or vice versa
-            final int colA = (staggerIndexOdd == (col1 % 2 == 0)) ? col1 + 1 : col1;
-            final int colB = (staggerIndexOdd == (col1 % 2 == 0)) ? col1 : col1 + 1;
+            final int colA = (staggerIndexEven == (col1 % 2 == 0)) ? col1 + 1 : col1;
+            final int colB = (staggerIndexEven == (col1 % 2 == 0)) ? col1 : col1 + 1;
 
             for (int row = row2 - 1; row >= row1; row--) {
                 for (int col = colA; col < col2; col += 2) {
-                    renderCell(layer.getCell(col, row), tileWidthUpperCorner * col + layerOffsetX,
-                            layerTileHeight50 + (layerTileHeight * row) + layerOffsetY, color);
+                    renderCell(layer.getCell(col, row), tileWidthUpperCorner * col + layerOffsetX,layerTileHeight50 + (layerTileHeight * row) + layerOffsetY, color);
                 }
                 for (int col = colB; col < col2; col += 2) {
-                    renderCell(layer.getCell(col, row), tileWidthUpperCorner * col + layerOffsetX,
-                            layerTileHeight * row + layerOffsetY, color);
+                    renderCell(layer.getCell(col, row), tileWidthUpperCorner * col + layerOffsetX,layerTileHeight * row + layerOffsetY, color);
                 }
             }
         } else {
@@ -157,23 +157,20 @@ public class HexagonalTiledMapRenderer extends BatchTiledMapRenderer {
             final float layerTileWidth50 = layerTileWidth * 0.50f;
 
             final int row1 = Math.max(0, (int) (((viewBounds.y - tileHeightLowerCorner - layerOffsetX) / tileHeightUpperCorner)));
-            final int row2 = Math.min(layerHeight,
-                    (int) ((viewBounds.y + viewBounds.height + tileHeightUpperCorner - layerOffsetX) / tileHeightUpperCorner));
+            final int row2 = Math.min(layerHeight, (int) ((viewBounds.y + viewBounds.height + tileHeightUpperCorner - layerOffsetX) / tileHeightUpperCorner));
 
             final int col1 = Math.max(0, (int) (((viewBounds.x - layerTileWidth50 - layerOffsetY) / layerTileWidth)));
-            final int col2 = Math.min(layerWidth,
-                    (int) ((viewBounds.x + viewBounds.width + layerTileWidth - layerOffsetY) / layerTileWidth));
+            final int col2 = Math.min(layerWidth, (int) ((viewBounds.x + viewBounds.width + layerTileWidth - layerOffsetY) / layerTileWidth));
 
             float shiftX = 0;
             for (int row = row2 - 1; row >= row1; row--) {
                 // depending on the stagger index either shift for even or uneven indexes
-                if ((row % 2 == 0) == staggerIndexOdd)
+                if ((row % 2 == 0) == staggerIndexEven)
                     shiftX = layerTileWidth50;
                 else
                     shiftX = 0;
                 for (int col = col1; col < col2; col++) {
-                    renderCell(layer.getCell(col, row), layerTileWidth * col + shiftX + layerOffsetX,
-                            tileHeightUpperCorner * row + layerOffsetY, color);
+                    renderCell(layer.getCell(col, row), layerTileWidth * col + shiftX + layerOffsetX, tileHeightUpperCorner * row + layerOffsetY, color);
                 }
             }
         }
