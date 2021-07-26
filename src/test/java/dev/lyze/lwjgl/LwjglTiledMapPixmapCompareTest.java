@@ -1,10 +1,8 @@
 package dev.lyze.lwjgl;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -19,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -34,6 +33,8 @@ public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
     private Label status;
     private Image expected, actual;
     private Image expectedStack, actualStack, differenceStack;
+
+    private boolean shouldTakeScreenshot;
 
     @Override
     public void create() {
@@ -96,6 +97,20 @@ public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
 
         stage.act();
         stage.draw();
+
+        if (shouldTakeScreenshot) {
+            byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true);
+
+            for (int i = 4; i <= pixels.length; i += 4)
+                pixels[i - 1] = (byte) 255;
+
+            Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
+            BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
+            PixmapIO.writePNG(Gdx.files.local("build/test-results/" + title.getText().replace("/", "_").replace("\\", "_") + ".png"), pixmap);
+            pixmap.dispose();
+
+            shouldTakeScreenshot = false;
+        }
     }
 
     public void compareMap(String title, String tiledMap, TiledMapRendererType rendererType, FileHandle expectedImageFileHandle) throws InterruptedException {
@@ -117,6 +132,8 @@ public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
             this.expectedStack.setDrawable(new TextureRegionDrawable(new Texture(expectedPixmap)));
             this.actualStack.setDrawable(new TextureRegionDrawable(new Texture(actualPixmap)));
             this.differenceStack.setDrawable(new TextureRegionDrawable(new Texture(differencePixmap)));
+
+            shouldTakeScreenshot = true;
 
             return isEqual;
         }, 15, TimeUnit.SECONDS);
@@ -155,7 +172,6 @@ public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
         for (int x = 0; x < expected.getWidth(); x++) {
             for (int y = 0; y < expected.getHeight(); y++) {
                 if (expected.getPixel(x, y) != actual.getPixel(x, y)) {
-                    System.err.println("Pixel difference at " + x + "/" + y + " => expected: " + expected.getPixel(x, y) + " but was: " + actual.getPixel(x, y));
 
                     difference.setColor(Color.RED);
                     difference.drawPixel(x, y);
