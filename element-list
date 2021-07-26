@@ -1,0 +1,6 @@
+com.badlogic.gdx.maps
+com.badlogic.gdx.maps.objects
+com.badlogic.gdx.maps.tiled
+com.badlogic.gdx.maps.tiled.objects
+com.badlogic.gdx.maps.tiled.renderers
+com.badlogic.gdx.maps.tiled.tiles
