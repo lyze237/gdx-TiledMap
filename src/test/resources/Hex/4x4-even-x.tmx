@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.3" orientation="hexagonal" renderorder="right-down" width="4" height="4" tilewidth="16" tileheight="16" infinite="0" hexsidelength="0" staggeraxis="x" staggerindex="even" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="HexTiles.tsx"/>
+ <layer id="1" name="Tile Layer 1" width="4" height="4">
+  <data encoding="base64">
+   AQAAAAEAAAABAAAAAQAAAAIAAAACAAAAAgAAAAIAAAADAAAAAwAAAAMAAAADAAAABAAAAAQAAAAEAAAABAAAAA==
+  </data>
+ </layer>
+</map>
