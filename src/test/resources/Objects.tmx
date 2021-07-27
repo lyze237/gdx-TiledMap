@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="7">
+<map version="1.4" tiledversion="1.4.3" orientation="orthogonal" renderorder="right-down" width="32" height="32" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="9">
  <objectgroup id="2" name="Objects">
   <object id="2" name="Cool Rectangle" type="a" x="16" y="464" width="48" height="32"/>
   <object id="3" name="Fantastic Circle" type="b" x="64" y="432" width="32" height="32">
@@ -14,5 +14,15 @@
   <object id="6" name="Super Text" type="e" x="48" y="384" width="83" height="19">
    <text wrap="1">Hello World</text>
   </object>
+  <object id="7" name="&quot;'&lt;&gt;&amp;" type="&quot;'&lt;&gt;&amp;" x="99" y="206" width="42" height="27">
+   <properties>
+    <property name="&quot;'&lt;&gt;&amp;" value="&quot;'&lt;&gt;&amp;"/>
+   </properties>
+  </object>
  </objectgroup>
+ <layer id="3" name="&quot;'&lt;&gt;&amp;" width="32" height="32">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20PBxQAAADwbhAAAAE=
+  </data>
+ </layer>
 </map>

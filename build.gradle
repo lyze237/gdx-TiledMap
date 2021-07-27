@@ -3,6 +3,8 @@ plugins {
     id 'maven-publish'
 }
 
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
 apply from: 'utils.gradle'
 group 'dev.lyze'
 version '1.0.' + getGitHash()
