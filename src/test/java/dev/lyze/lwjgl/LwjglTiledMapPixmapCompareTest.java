@@ -21,10 +21,9 @@ import com.badlogic.gdx.utils.BufferUtils;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-
-import java.util.concurrent.TimeUnit;
 
 public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
     private Stage stage;
@@ -99,21 +98,27 @@ public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
         stage.draw();
 
         if (shouldTakeScreenshot) {
-            byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true);
+            byte[] pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(),
+                    Gdx.graphics.getBackBufferHeight(), true);
 
             for (int i = 4; i <= pixels.length; i += 4)
                 pixels[i - 1] = (byte) 255;
 
-            Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
+            Pixmap pixmap = new Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(),
+                    Pixmap.Format.RGBA8888);
             BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.length);
-            PixmapIO.writePNG(Gdx.files.local("build/test-results/" + title.getText().replace("/", "_").replace("\\", "_") + ".png"), pixmap);
+            PixmapIO.writePNG(
+                    Gdx.files.local(
+                            "build/test-results/" + title.getText().replace("/", "_").replace("\\", "_") + ".png"),
+                    pixmap);
             pixmap.dispose();
 
             shouldTakeScreenshot = false;
         }
     }
 
-    public void compareMap(String title, String tiledMap, TiledMapRendererType rendererType, FileHandle expectedImageFileHandle) throws InterruptedException {
+    public void compareMap(String title, String tiledMap, TiledMapRendererType rendererType,
+            FileHandle expectedImageFileHandle) throws InterruptedException {
         final Pixmap expectedPixmap = new Pixmap(expectedImageFileHandle);
 
         this.title.setText(title + " (" + tiledMap + ", " + rendererType + ")");
@@ -121,7 +126,8 @@ public abstract class LwjglTiledMapPixmapCompareTest extends BaseLwjglTest {
         boolean result = runOnOpenGlContext(() -> {
             Pixmap actualPixmap = renderMap(tiledMap, rendererType, expectedPixmap);
 
-            Pixmap differencePixmap = new Pixmap(expectedPixmap.getWidth(), expectedPixmap.getHeight(), expectedPixmap.getFormat());
+            Pixmap differencePixmap = new Pixmap(expectedPixmap.getWidth(), expectedPixmap.getHeight(),
+                    expectedPixmap.getFormat());
             boolean isEqual = isPixmapEqual(expectedPixmap, actualPixmap, differencePixmap);
 
             status.setText(isEqual ? "Correct" : "Incorrect");

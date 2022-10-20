@@ -17,7 +17,7 @@ public class TiledMapLoadingTest extends LwjglTiledMapPixmapCompareTest {
     public void basicComparison() throws InterruptedException {
         compareMap("Ortho", "Basic.tmx", TiledMapRendererType.Ortho, Gdx.files.internal("Basic.png"));
     }
-
+    
     @Test
     @Tag("lwjgl")
     public void basicCachedComparison() throws InterruptedException {

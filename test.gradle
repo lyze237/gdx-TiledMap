@@ -8,12 +8,12 @@ test {
         showCauses = true
         displayGranularity = 0
         events = [
-                "standardOut",
-                "standardError",
-                "started",
-                "passed",
-                "skipped",
-                "failed"
+            "standardOut",
+            "standardError",
+            "started",
+            "passed",
+            "skipped",
+            "failed"
         ]
         showStandardStreams = true
     }

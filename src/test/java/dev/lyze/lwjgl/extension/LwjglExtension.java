@@ -4,10 +4,9 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import dev.lyze.lwjgl.ApplicationAdapterWrapper;
-import org.junit.jupiter.api.Assertions;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+import org.junit.jupiter.api.Assertions;
 
 public class LwjglExtension extends BaseLwjglExtension {
     private static CountDownLatch lock = new CountDownLatch(1);
