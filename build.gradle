@@ -1,41 +1,39 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        google()
+        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        gradlePluginPortal()
+    }
+}
+
 plugins {
     id 'java'
     id 'maven-publish'
+    id 'io.freefair.lombok' version "$lombokPluginVersion"
+    id 'com.diffplug.spotless' version "$spotlessPluginVersion"
 }
-
-[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 apply from: 'utils.gradle'
 group 'dev.lyze'
 version '1.0.' + getGitHash()
 
-sourceCompatibility = 8
-
-publishing {
-    publications {
-        gdxTiledMap(MavenPublication) {
-            pom {
-                name = "gdx-TiledMap"
-                description = "Libgdx library to implement tiled map based maps."
-                url = "https://github.com/lyze237/gdx-TiledMap"
-                licenses {
-                    license {
-                        name = "The Apache License, Version 2.0"
-                        url = "http://www.apache.org/licenses/LICENSE-2.0.txt"
-                    }
-                }
-            }
-            from components.java
-        }
-    }
-}
+apply from: 'publishing.gradle'
+apply from: 'spotless.gradle'
+apply from: 'test.gradle'
 
 repositories {
+    mavenLocal()
     mavenCentral()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+    implementation "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
 
     testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
     testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
@@ -44,16 +42,22 @@ dependencies {
     testImplementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
     testImplementation "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
     testImplementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
 }
 
-test {
-    if (project.hasProperty("lwjgl")) {
-        useJUnitPlatform {
-            includeTags "lwjgl"
-        }
-    } else {
-        useJUnitPlatform {
-            excludeTags 'lwjgl'
-        }
-    }
+java {
+    sourceCompatibility = 8
+    targetCompatibility = 8
 }
+
+compileTestJava {
+    sourceCompatibility = 8
+    targetCompatibility = 8
+}
+
+compileJava {
+    options.incremental = true
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'

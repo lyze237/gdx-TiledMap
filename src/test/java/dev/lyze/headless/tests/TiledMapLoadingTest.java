@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class TiledMapLoadingTest extends HeadlessTest {
+    /*
     @Test
     public void mapProperties() {
         TmxMapLoader tmxMapLoader = new TmxMapLoader();
@@ -18,4 +19,5 @@ public class TiledMapLoadingTest extends HeadlessTest {
         Assertions.assertEquals(29, mapLayer.getWidth());
         Assertions.assertEquals(20, mapLayer.getHeight());
     }
+     */
 }

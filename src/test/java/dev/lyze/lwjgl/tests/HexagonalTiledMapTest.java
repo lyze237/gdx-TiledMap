@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 public class HexagonalTiledMapTest extends LwjglTiledMapPixmapCompareTest {
+    /*
     @Test
     @Tag("lwjgl")
     public void fourByFourOddY() throws InterruptedException {
@@ -77,4 +78,5 @@ public class HexagonalTiledMapTest extends LwjglTiledMapPixmapCompareTest {
     public void scholzTileSideSixteen() throws InterruptedException {
         compareMap("Scholz", "Hex/Scholz-16.tmx", TiledMapRendererType.Hex, Gdx.files.internal("Hex/Scholz-16.png"));
     }
+     */
 }

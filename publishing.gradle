@@ -1,0 +1,39 @@
+task delombokedSourcesJars(type: Jar, dependsOn: classes) {
+    from sourceSets.main.delombokTask {
+        include "**/*.java"
+        filter { String line -> line.replaceAll('^\\s*import lombok\\..*$', '') }
+    }
+    from('src/main/resources') {
+        include '**/*'
+    }
+    archiveClassifier.set("sources")
+}
+
+javadoc {
+    source = sourceSets.main.delombokTask
+    failOnError = false
+}
+
+java {
+    withJavadocJar()
+}
+
+publishing {
+    publications {
+        gdxTiledMap(MavenPublication) {
+            pom {
+                name = "gdx-TiledMap"
+                description = "Libgdx library to load and render tiled map files."
+                url = "https://github.com/lyze237/gdx-TiledMap"
+                licenses {
+                    license {
+                        name = "The Apache License, Version 2.0"
+                        url = "https://www.apache.org/licenses/LICENSE-2.0.txt"
+                    }
+                }
+            }
+            from components.java
+            artifact delombokedSourcesJars
+        }
+    }
+}

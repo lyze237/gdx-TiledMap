@@ -14,6 +14,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 public class ObjectMapLoadingTest extends HeadlessTest {
+    /*
     @Test
     public void loadObjectMap() {
         TmxMapLoader tmxMapLoader = new TmxMapLoader();
@@ -43,4 +44,5 @@ public class ObjectMapLoadingTest extends HeadlessTest {
         Assertions.assertEquals("\"'<>&",  obj.getProperties().get("type", String.class), "type");
         Assertions.assertEquals("\"'<>&",  obj.getProperties().get("\"'<>&", String.class), "custom property");
     }
+     */
 }

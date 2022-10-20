@@ -10,21 +10,7 @@ A libgdx parser for tiled https://www.mapeditor.org/
 
 The current libgdx implementation is kinda wonky, broken and unmaintained.
 
-This is a project to get everything up to date and separated into its own repo.
-
-# Plans
-
-1. [ ] Delete Tide implementation
-1. [ ] Clear up the confusion with multiple class prefix `Tiled`, `Tmx`, ...
-1. [ ] Add missing features from later .tmx file format versions
-    1. [ ] Infinite map
-1. [ ] Go through libgdx issues and resolve them
-
-# What changed / How to migrate
-
-* Circles get parsed as CircleMapObjects instead of ellipses.
-* [#6607](https://github.com/libgdx/libgdx/pull/6607) Hexagonal tiled map renderer got fixed.
-* [#6534](https://github.com/libgdx/libgdx/pull/6534) Built in tile "type" property supported got added.
+This is a project to re-implement the tiled map parser and make it up to date.
 
 # Installation
 

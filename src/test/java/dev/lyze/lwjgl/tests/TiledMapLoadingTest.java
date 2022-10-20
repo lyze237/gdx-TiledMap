@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 @ExtendWith(LwjglExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TiledMapLoadingTest extends LwjglTiledMapPixmapCompareTest {
+    /*
     @Test
     @Tag("lwjgl")
     public void basicComparison() throws InterruptedException {
@@ -22,4 +23,5 @@ public class TiledMapLoadingTest extends LwjglTiledMapPixmapCompareTest {
     public void basicCachedComparison() throws InterruptedException {
         compareMap("Cached", "Basic.tmx", TiledMapRendererType.Cached, Gdx.files.internal("Basic.png"));
     }
+     */
 }
